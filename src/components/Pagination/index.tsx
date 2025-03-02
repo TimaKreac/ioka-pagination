@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import styles from "./styles.module.scss";
 
 interface PaginationProps {
@@ -51,7 +52,14 @@ export default function Pagination({
       </button>
       <div className={styles.pages}>
         {[...Array(pageSize).keys()].map((index) => (
-          <button onClick={() => selectPage(index + 1)}>{index + 1}</button>
+          <button
+            className={classNames(styles.page, {
+              [styles.active]: page === index + 1,
+            })}
+            onClick={() => selectPage(index + 1)}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
       <button onClick={goToNextPage} disabled={isNextPageDisabled}>

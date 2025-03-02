@@ -6,4 +6,11 @@
 .pages {
   display: flex;
   gap: 4px;
+
+  .page {
+    &.active {
+      color: var(--black);
+      background: var(--white);
+    }
+  }
 }
