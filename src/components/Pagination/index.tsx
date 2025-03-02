@@ -6,6 +6,7 @@ interface PaginationProps {
   page: number;
   setPage: (page: number) => void;
   jumpStep?: number;
+  loop?: boolean;
 }
 
 const defaultJumpStep = 2;
@@ -15,32 +16,49 @@ export default function Pagination({
   page,
   setPage,
   jumpStep = defaultJumpStep,
+  loop = false,
 }: PaginationProps) {
+  const goToPage = (page: number) => {
+    let newPage = page;
+
+    if (loop) {
+      if (page < 1) {
+        newPage = pageSize;
+      } else if (page > pageSize) {
+        newPage = 1;
+      }
+    } else {
+      newPage = Math.min(Math.max(page, 1), pageSize);
+    }
+
+    setPage(newPage);
+  };
+
   const goToBackwardsPage = () => {
-    setPage(page - jumpStep);
+    goToPage(page - jumpStep);
   };
 
   const goToForwardsPage = () => {
-    setPage(page + jumpStep);
+    goToPage(page + jumpStep);
   };
 
   const goToPrevPage = () => {
-    setPage(page - 1);
+    goToPage(page - 1);
   };
 
   const goToNextPage = () => {
-    setPage(page + 1);
+    goToPage(page + 1);
   };
 
   const selectPage = (page: number) => {
-    setPage(page);
+    goToPage(page);
   };
 
-  const isBackwardsPageDisabled = page - jumpStep < 1;
-  const isPrevPageDisabled = page <= 1;
+  const isBackwardsPageDisabled = !loop && page - jumpStep < 1;
+  const isPrevPageDisabled = !loop && page <= 1;
 
-  const isNextPageDisabled = page >= pageSize;
-  const isForwardsPageDisabled = page + jumpStep > pageSize;
+  const isNextPageDisabled = !loop && page >= pageSize;
+  const isForwardsPageDisabled = !loop && page + jumpStep > pageSize;
 
   return (
     <div className={styles.pagination}>
