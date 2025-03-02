@@ -1,3 +1,9 @@
+import {
+  RiArrowLeftDoubleLine,
+  RiArrowLeftSLine,
+  RiArrowRightDoubleLine,
+  RiArrowRightSLine,
+} from "@remixicon/react";
 import classNames from "classnames";
 import { usePagination } from "../../hooks/usePagination";
 import styles from "./styles.module.scss";
@@ -40,10 +46,10 @@ export default function Pagination({
   return (
     <div className={styles.pagination}>
       <button onClick={goToBackwardsPage} disabled={isBackwardsPageDisabled}>
-        DoubleLeft
+        <RiArrowLeftDoubleLine />
       </button>
       <button onClick={goToPrevPage} disabled={isPrevPageDisabled}>
-        Left
+        <RiArrowLeftSLine />
       </button>
       <div className={styles.pages}>
         {[...Array(pageSize).keys()].map((index) => (
@@ -58,10 +64,10 @@ export default function Pagination({
         ))}
       </div>
       <button onClick={goToNextPage} disabled={isNextPageDisabled}>
-        Right
+        <RiArrowRightSLine />
       </button>
       <button onClick={goToForwardsPage} disabled={isForwardsPageDisabled}>
-        DoubleRight
+        <RiArrowRightDoubleLine />
       </button>
     </div>
   );
