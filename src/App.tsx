@@ -6,6 +6,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoop, setIsLoop] = useState(true);
 
+  const onToggleLoop = () => {
+    setIsLoop((is) => !is);
+  };
+
   return (
     <div>
       <h1>Ioka Pagination</h1>
@@ -16,7 +20,12 @@ function App() {
             id="loop"
             name="loop"
             checked={isLoop}
-            onChange={() => setIsLoop((is) => !is)}
+            onChange={onToggleLoop}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                onToggleLoop();
+              }
+            }}
           />
           <label htmlFor="loop">loop</label>
         </div>
